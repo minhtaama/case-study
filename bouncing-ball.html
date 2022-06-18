@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bouncing Ball</title>
+    <link rel="stylesheet" href="boucing-ball.css">
+</head>
+<body>
+    <div id="game">
+        <div id="info">
+            <img id="logo" src="source/logo.png" alt="source/logo.png">
+            <p id="level">LOREM IPSUM</p>
+        </div>
+        <div id="text">
+            <p id="ammo">ammo</p>
+            <p id="targets">destroyed</p>
+            <p id="balls">current balls</p>
+        </div>
+        <canvas id="canvas" width="960" height="1024"></canvas>
+        <div id="buttons">
+            <canvas id="left" width="96" height="96"></canvas>
+            <canvas id="fire" width="96" height="96"></canvas>
+            <canvas id="right" width="96" height="96"></canvas>
+        </div>
+        <nav id="nav">
+            <button id="btn-restart">RESTART</button>
+            <button id="btn-back">BACK</button>
+        </nav>
+    </div>
+</body>
+<script src="script/game/main.js"></script>
+<script src="script/game/source.js"></script>
+<script src="script/game/game-class.js"></script>
+<script src="script/game/balls-class.js"></script>
+<script src="script/game/pad-class.js"></script>
+<script src="script/game/targets-class.js"></script>
+<script src="script/game/powers-class.js"></script>
+<script src="script/levels.js"></script>
+</html>

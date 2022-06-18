@@ -1,0 +1,130 @@
+@import url('http://fonts.cdnfonts.com/css/pixelsplitter');
+:root {
+    touch-action: none;
+    user-select:none;
+    -khtml-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+    -webkit-tap-highlight-color:rgba(0, 0, 0, 0);
+}
+
+html {
+    background-image: url("source/background.png");
+    background-size: cover;
+    font-family: 'PixelSplitter', sans-serif;
+    color: aliceblue;
+}
+
+#game {
+    display: grid;
+    grid-gap: 1rem;
+    grid-template-areas: 
+        "in in in in ca ca ca ca"
+        "in in in in ca ca ca ca"
+        "te te te te ca ca ca ca"
+        "te te te te ca ca ca ca"  
+        "na na na na ca ca ca ca"  
+        "na na na na ca ca ca ca"  
+        "bu bu bu bu ca ca ca ca";  
+    text-align: center;
+}
+
+#info {
+    grid-area: in;
+    max-height: max-content;
+    font-size: 1.75rem;
+}
+#text {
+    grid-area: te;
+}
+#logo {
+    max-width: 500px;
+}
+#text > p {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    padding: 0;
+}
+#level {
+    margin-block-start: 0rem;
+    margin-bottom: 4rem;
+}
+#targets {
+    font-size: 3.5rem;
+}
+#ammo, #balls {
+    font-size: 2rem;
+}
+#canvas {
+    grid-area: ca;
+    border: 3px solid black;
+    border-bottom: 3px solid darkred;
+    height: 97vh;
+}
+#buttons {
+    grid-area: bu;
+    margin-left: auto;
+    margin-right: auto;
+}
+#nav {
+    grid-area: na;
+    text-align: center;
+}
+#nav > button {
+    font-family: inherit;
+    font-size: 2rem;
+    color: #30D1BC;
+    width: 10rem;
+    height: 5rem;
+    background-color: aliceblue;
+    border: 1px solid aliceblue;
+    border-radius: 0.3rem;
+}
+
+
+
+ @media(max-width: 400px) {    
+    #game {
+        grid-template-areas: 
+                "in in in"
+                "te te te"
+                "ca ca ca"
+                "ca ca ca"
+                "ca ca ca"
+                "bu bu bu"
+                "na na na";
+    }
+    #info {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+    #level, #balls{
+        font-size: 1rem;
+    }
+    #targets {
+        font-size: 2rem;
+    }
+    #ammo, #balls {
+        font-size: 1rem;
+    }
+    #level {
+        margin-bottom: 1rem;
+    }
+    #logo {
+        width: 70%;
+    }
+    #canvas {
+        height: auto;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    #nav > button {
+        font-size: 1rem;
+        width: 40%;
+        height: 3rem;
+    }
+}
