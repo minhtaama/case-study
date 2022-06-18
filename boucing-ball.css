@@ -1,4 +1,10 @@
-@import url('https://fonts.cdnfonts.com/css/pixelsplitter');
+@font-face {
+    font-family: 'PixelSplitter';
+    font-style: normal;
+    font-weight: 700;
+    src: local('PixelSplitter'), url('https://fonts.cdnfonts.com/s/6104/PixelSplitter-Bold.woff') format('woff');
+}
+
 :root {
     touch-action: none;
     user-select:none;
