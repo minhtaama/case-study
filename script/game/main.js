@@ -62,6 +62,7 @@ window.onload = function() {
     
     ["touchstart","mousedown"].forEach(val => {
         document.getElementById("fire").addEventListener(val,()=>{
+            game.balls.isShoot = true;
             ctxFire.clearRect(0,0,96,96);
             ctxFire.beginPath();
             ctxFire.drawImage(fireBtnP,0,0,96,96);
@@ -70,6 +71,7 @@ window.onload = function() {
 
     ["touchend","mouseup"].forEach(val => {
         document.getElementById("fire").addEventListener(val,()=>{
+            game.balls.isShoot = false;
             ctxFire.clearRect(0,0,96,96);
             ctxFire.beginPath();
             ctxFire.drawImage(fireBtn,0,0,96,96);
