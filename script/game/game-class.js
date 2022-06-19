@@ -95,7 +95,7 @@ class BouncingBall {
 
     checkWin() {
         let filter = this.targets.array.filter(el => {
-            return el.isWall == false;
+            return el.isWall == false && el.isGlass == false;
         })
         if (filter.length == 0) {
             return this.isWin = true;

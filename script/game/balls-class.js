@@ -273,8 +273,13 @@ class Balls {
                 this.array[i].move();
                 if(this.array[i].y >= canvas.height || this.array[i].y < -10 || this.array[i].maxKills <= 0) {
                     if (this.array[i].isHasPower == "glass") {
-                        let tar = new Tar(this.array[i].x - 8*this.array[i].radius, this.array[i].y, this.array[i].radius*16, this.array[i].radius*2, false, false, true);
-                        targets.array.push(tar);
+                        targets.array.push(new Tar(this.array[i].x - 9*this.array[i].radius, this.array[i].y, this.array[i].radius*3, this.array[i].radius*3, false, false, true));
+                        targets.array.push(new Tar(this.array[i].x - 6*this.array[i].radius, this.array[i].y, this.array[i].radius*3, this.array[i].radius*3, false, false, true));
+                        targets.array.push(new Tar(this.array[i].x - 3*this.array[i].radius, this.array[i].y, this.array[i].radius*3, this.array[i].radius*3, false, false, true));
+                        targets.array.push(new Tar(this.array[i].x, this.array[i].y, this.array[i].radius*3, this.array[i].radius*3, false, false, true));
+                        targets.array.push(new Tar(this.array[i].x + 3*this.array[i].radius, this.array[i].y, this.array[i].radius*3, this.array[i].radius*3, false, false, true));
+                        targets.array.push(new Tar(this.array[i].x + 6*this.array[i].radius, this.array[i].y, this.array[i].radius*3, this.array[i].radius*3, false, false, true));
+                        targets.array.push(new Tar(this.array[i].x + 9*this.array[i].radius, this.array[i].y, this.array[i].radius*3, this.array[i].radius*3, false, false, true));
                     }
                     this.array[i] = 0;
                 }
