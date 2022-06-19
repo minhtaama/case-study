@@ -43,7 +43,9 @@ class BouncingBall {
         this.currballs = this.balls.array.filter((el,idx,arr) => {
             return typeof el === "object";
         }).length;
-        document.getElementById("ammo").innerHTML = `ROCKETS: ${this.balls.ammo}`;
+        if(this.balls.ammoType == "rocket") {
+            document.getElementById("ammo").innerHTML = `ROCKETS: ${this.balls.ammo}`;
+        } else document.getElementById("ammo").innerHTML = `GLASSES: ${this.balls.ammo}`;
         document.getElementById("targets").innerHTML = `Destroyed: ${this.tarKills + this.wallKills}`;
         document.getElementById("balls").innerHTML = `Current Balls: ${this.currballs}`;
         this.score = (this.tarKills + this.wallKills*20) + (this.currballs?this.currballs:1)*50;

@@ -16,7 +16,13 @@ window.onload = function() {
 
 
     /////////// NAVIGATION BUTTON /////////
-
+    
+    document.getElementById("btn-switch").addEventListener("click", () => {
+        if(game.balls.ammoType == "rocket") {
+            game.balls.ammoType = "glass";
+        } else game.balls.ammoType = "rocket";
+    })
+    
     document.getElementById("btn-restart").addEventListener("click", ()=> {
         game = new BouncingBall(160);
         game.balls.array.push(new Bal(11, "no-power"));

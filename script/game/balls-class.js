@@ -118,7 +118,7 @@ class Bal {
     whenTouchTargets(powers, targets){
         for(let i = 0; i < targets.length; i++) {
             if(this.isTouch(targets[i]) && typeof targets[i] == "object") {
-                if(!targets[i].isWall && !targets[i].isSpawnPower) {
+                if(!targets[i].isWall && !targets[i].isSpawnPower && !targets[i].isGlass && this.isHasPower != "glass") {
                     if(Math.floor(Math.random() * 11) >= 8) {       //percentage of spawning powers
                         let j = Math.floor(Math.random()*6);
                         switch(j) {
@@ -130,8 +130,8 @@ class Bal {
                                 break;
                         }
                     }
-                } else if(!targets[i].isWall && targets[i].isSpawnPower) {
-                    this.spawnPower(powers, targets[i],"rocket");
+                } else if(targets[i].isSpawnPower && this.isHasPower != "glass") {
+                    this.spawnPower(powers, targets[i],"ammo");
                 }
                 switch(this.isHasPower) {
                     case "no-power":
@@ -147,9 +147,10 @@ class Bal {
                             targets[i] = -1;
                         } else targets[i] = -2;
                         break;
+                    case "glass":
+                        this.maxKills = 0;
+                        break;
                 }
-                console.log(targets);
-                console.log(i);
             }
         }
     }
@@ -166,13 +167,13 @@ class Bal {
     }
     move(){
         if(this.xFlag == 1) {
-            if (this.isHasPower == "rocket" || this.isHasPower == "super-ball") {
+            if (this.isHasPower != "no-power") {
                 this.spHorizon *= 1.015;
             }
             this.x += this.spHorizon;                   //move right
         }
         if(this.xFlag == 0) {
-            if (this.isHasPower == "rocket" || this.isHasPower == "super-ball") {
+            if (this.isHasPower != "no-power") {
                 this.spHorizon *= 1.015;
             }
             this.x -= this.spHorizon;                   //move left
@@ -181,7 +182,7 @@ class Bal {
             this.y += this.spVertical;                  //move bottom
         }
         if(this.yFlag == 0) {
-            if(this.isHasPower == "rocket" || this.isHasPower == "super-ball") {
+            if(this.isHasPower != "no-power") {
                 this.spVertical *=1.015;
             }
             this.y -= this.spVertical;                  //move top
@@ -198,6 +199,9 @@ class Bal {
             case "super-ball":
                 ctx.drawImage(superBallImg,this.x-this.radius,this.y-this.radius,this.radius*2,this.radius*2);
                 break;
+            case "glass":
+                ctx.drawImage(glassImg,this.x-this.radius,this.y-this.radius,this.radius*2.5,this.radius*2.5);
+                break;
         }
     }
 }
@@ -208,6 +212,7 @@ class Balls {
         this.isPlaying = true;
         this.ammo = 0;
         this.isShoot = false;
+        this.ammoType = "rocket";
     }
     isEnd() {
         let count = 0;
@@ -221,8 +226,11 @@ class Balls {
         }
     }
 
-    spawnRocket(pad) {    
-        let bal = new Bal(11, "rocket");
+    spawnAmmo(pad) {
+        let bal;
+        if(this.ammoType == "rocket") {
+            bal = new Bal(11, "rocket");
+        } else bal = new Bal(11, "glass");
         let x = pad.x + pad.width/2;
         let y = pad.y - bal.radius - 5;
         if(pad.goLeft) {
@@ -240,12 +248,12 @@ class Balls {
         this.array.push(bal);
         bal.getCoordinates(x,y);
     }
-
+    
     display(pad,targets,powers) {
         this.isEnd();
         if(this.isShoot && this.ammo > 0) {
             this.ammo--;
-            this.spawnRocket(pad);
+            this.spawnAmmo(pad);
             this.isShoot = false;
         }
         for(let i = 0; i<this.array.length; i++) {
@@ -257,14 +265,17 @@ class Balls {
                         this.array[i].whenTouchBorder();
                         break;
                     case "rocket":
-                        this.array[i].whenTouchTargets(powers,targets.array);
-                        break;
                     case "super-ball":
+                    case "glass":
                         this.array[i].whenTouchTargets(powers,targets.array);
                         break;
                 }
                 this.array[i].move();
                 if(this.array[i].y >= canvas.height || this.array[i].y < -10 || this.array[i].maxKills <= 0) {
+                    if (this.array[i].isHasPower == "glass") {
+                        let tar = new Tar(this.array[i].x - 8*this.array[i].radius, this.array[i].y, this.array[i].radius*16, this.array[i].radius*2, false, false, true);
+                        targets.array.push(tar);
+                    }
                     this.array[i] = 0;
                 }
             }

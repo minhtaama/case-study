@@ -1,5 +1,5 @@
 class Tar{
-    constructor(x,y,width,height,isWall,isSpawnPower){
+    constructor(x,y,width,height,isWall,isSpawnPower,isGlass){
         this.x = x;
         this.y = y;
         this.width = width;
@@ -9,15 +9,18 @@ class Tar{
         this.goDown = false;
         this.isWall = isWall;
         this.isSpawnPower = isSpawnPower;
+        this.isGlass = isGlass
     }
     display() {
         ctx.beginPath();
-        if(!this.isWall && !this.isSpawnPower){
+        if(!this.isWall && !this.isSpawnPower && !this.isGlass){
             ctx.drawImage(tarImg,this.x,this.y,this.width,this.height);
-        } else if(!this.isSpawnPower) {
+        } else if(this.isWall) {
             ctx.drawImage(wallImg,this.x,this.y,this.width,this.height);
-        } else {
+        } else if(this.isSpawnPower) {
             ctx.drawImage(tarSuperImg,this.x,this.y,this.width,this.height);
+        } else if(this.isGlass) {
+            ctx.drawImage(glassImg,this.x,this.y,this.width,this.height);
         }
     }
     move() {
@@ -38,11 +41,13 @@ class Targets {
         const WIDTH = canvas.width/args.length;
         for(let j = 0; j < args.length; j++){
             if (args[j] == 1) {
-                this.array.push(new Tar(x,yPos,WIDTH,WIDTH,true,false)); //wall
+                this.array.push(new Tar(x,yPos,WIDTH,WIDTH,true,false,false)); //wall
             } else if(args[j]==2) {
-                this.array.push(new Tar(x,yPos,WIDTH,WIDTH,false,false)); //target
+                this.array.push(new Tar(x,yPos,WIDTH,WIDTH,false,false,false)); //target
             } else if(args[j]==3) {
-                this.array.push(new Tar(x,yPos,WIDTH,WIDTH,false,true));  //target with power  
+                this.array.push(new Tar(x,yPos,WIDTH,WIDTH,false,true,false));  //target with power  
+            } else if(args[j]==3) {
+                this.array.push(new Tar(x,yPos,WIDTH,WIDTH,false,false,true));  //glass  
             } else if(args[j]==0) {
                 this.array.push(0);
             }

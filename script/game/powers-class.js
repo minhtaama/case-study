@@ -53,7 +53,7 @@ class Pow {
                     bal.spVertical = 3;
                 }
                 break;
-            case "rocket":
+            case "ammo":
                 balls.ammo++;
                 break;
         }
@@ -68,7 +68,7 @@ class Pow {
             case "add-ball":
                 ctx.drawImage(trsureAddBallImg,this.x,this.y,this.width,this.height);;
                 break;
-            case "rocket":
+            case "ammo":
                 ctx.drawImage(trsureRocketImg,this.x,this.y,this.width,this.height);;
                 break;
             case "super-ball":
