@@ -136,7 +136,7 @@ class Bal {
                 switch(this.isHasPower) {
                     case "no-power":
                         this.modDirection(targets[i]);
-                        if(!targets[i].isWall) {
+                        if(!targets[i].isWall && !targets[i].isGlass) {
                             targets[i] = -2;
                         }
                         break;
@@ -210,7 +210,7 @@ class Balls {
     constructor() {    
         this.array = [];
         this.isPlaying = true;
-        this.ammo = 0;
+        this.ammo = 5;
         this.isShoot = false;
         this.ammoType = "rocket";
     }
