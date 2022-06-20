@@ -119,16 +119,11 @@ class Bal {
         for(let i = 0; i < targets.length; i++) {
             if(this.isTouch(targets[i]) && typeof targets[i] == "object") {
                 if(!targets[i].isWall && !targets[i].isSpawnPower && !targets[i].isGlass && this.isHasPower != "glass") {
-                    if(Math.floor(Math.random() * 11) >= 8) {       //percentage of spawning powers
-                        let j = Math.floor(Math.random()*6);
-                        switch(j) {
-                            case 0: case 1: case 2: case 3: case 4:
-                                this.spawnPower(powers, targets[i],"add-ball");
-                                break;
-                            case 5:
-                                this.spawnPower(powers, targets[i],"super-ball");
-                                break;
-                        }
+                    if(Math.floor(Math.random() * 11) >= 9) {       //percentage of spawning powers
+                        let j = Math.floor(Math.random()*9);
+                        if(j == 8) {
+                            this.spawnPower(powers, targets[i],"super-ball");
+                        } else this.spawnPower(powers, targets[i],"add-ball");
                     }
                 } else if(targets[i].isSpawnPower && this.isHasPower != "glass") {
                     this.spawnPower(powers, targets[i],"ammo");
@@ -141,9 +136,14 @@ class Bal {
                         }
                         break;
                     case "rocket":
-                    case "super-ball":
                         this.maxKills--;
+                        if (targets[i].isWall) {
+                            targets[i] = -1;
+                        } else targets[i] = -2;
+                        break;
+                    case "super-ball":
                         if(targets[i].isWall) {
+                            this.modDirection(targets[i]);
                             targets[i] = -1;
                         } else targets[i] = -2;
                         break;
@@ -167,13 +167,13 @@ class Bal {
     }
     move(){
         if(this.xFlag == 1) {
-            if (this.isHasPower != "no-power") {
+            if (this.isHasPower != "no-power" && this.isHasPower != "super-ball") {
                 this.spHorizon *= 1.015;
             }
             this.x += this.spHorizon;                   //move right
         }
         if(this.xFlag == 0) {
-            if (this.isHasPower != "no-power") {
+            if (this.isHasPower != "no-power" && this.isHasPower != "super-ball") {
                 this.spHorizon *= 1.015;
             }
             this.x -= this.spHorizon;                   //move left
@@ -182,7 +182,7 @@ class Bal {
             this.y += this.spVertical;                  //move bottom
         }
         if(this.yFlag == 0) {
-            if(this.isHasPower != "no-power") {
+            if(this.isHasPower != "no-power" && this.isHasPower != "super-ball") {
                 this.spVertical *=1.015;
             }
             this.y -= this.spVertical;                  //move top
@@ -260,12 +260,12 @@ class Balls {
             if(this.array[i]) {
                 switch(this.array[i].isHasPower) {
                     case "no-power":
+                    case "super-ball":
                         this.array[i].whenTouch(pad);
                         this.array[i].whenTouchTargets(powers,targets.array);
                         this.array[i].whenTouchBorder();
                         break;
                     case "rocket":
-                    case "super-ball":
                     case "glass":
                         this.array[i].whenTouchTargets(powers,targets.array);
                         break;

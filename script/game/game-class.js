@@ -48,7 +48,7 @@ class BouncingBall {
         } else document.getElementById("ammo").innerHTML = `GLASSES: ${this.balls.ammo}`;
         document.getElementById("targets").innerHTML = `Destroyed: ${this.tarKills + this.wallKills}`;
         document.getElementById("balls").innerHTML = `Current Balls: ${this.currballs}`;
-        this.score = (this.tarKills + this.wallKills*20) + (this.currballs?this.currballs:1)*50;
+        this.score = this.tarKills + this.wallKills*20 + this.currballs*50;
     }
 
     renderWinDiplay() {

@@ -38,19 +38,18 @@ class Pow {
                 break;
             case "super-ball":
                 bal = new Bal(11, "super-ball");
-                x = this.x;
-                y = this.y;
-                if(pad.goLeft) {
-                    bal.spHorizon = Math.sqrt(1);
-                    bal.spVertical = Math.sqrt(8);
-                    bal.xFlag = 0;
-                } else if(pad.goRight) {
-                    bal.spHorizon = Math.sqrt(1);
-                    bal.spVertical = Math.sqrt(8);
-                    bal.xFlag = 1;
-                } else {
-                    bal.spHorizon = 0;
-                    bal.spVertical = 3;
+                for (let i = 0; i <= balls.array.length - 1; i++) {
+                    if (typeof balls.array[i] == "object" && balls.array[i].isHasPower == "no-power") {
+                        bal.spHorizon = balls.array[i].spVertical;
+                        bal.spVertical = balls.array[i].spHorizon;
+                        bal.yFlag = balls.array[i].yFlag;
+                        bal.xFlag = balls.array[i].xFlag;
+                        x = balls.array[i].x;
+                        y = balls.array[i].y;
+                        if (balls.array[i].yFlag == 0) {
+                            break;
+                        }
+                    }
                 }
                 break;
             case "ammo":
